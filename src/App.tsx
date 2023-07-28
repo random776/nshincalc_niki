@@ -34,6 +34,10 @@ function App() {
   const [result, setResult] = useState(2);
   // 見えるか見えないか
   const [visible, setVisible] = useState(false);
+  //ランダム対応
+  const [ransu, setRansu] = useState(
+    Math.floor(Math.random() * (4 + 1 - 1)) + 1
+  );
 
   return (
     <>
@@ -41,10 +45,12 @@ function App() {
       <p>
         <div className="input">
           <TextField
-            sx={{ maxWidth: 120 ,
+            sx={{
+              maxWidth: 120,
               "@media screen and (max-width:467px)": {
-                maxWidth: 100
-            }, }}
+                maxWidth: 100,
+              },
+            }}
             type="text"
             className={"textfield"}
             label="1番目"
@@ -63,10 +69,12 @@ function App() {
         </div>
         <div className="input">
           <TextField
-            sx={{ maxWidth: 120 ,
+            sx={{
+              maxWidth: 120,
               "@media screen and (max-width:467px)": {
-                maxWidth: 100
-            }, }}
+                maxWidth: 100,
+              },
+            }}
             type="text"
             className={"textfield"}
             variant="filled"
@@ -85,10 +93,12 @@ function App() {
         </div>
         <div className="input">
           <TextField
-            sx={{ maxWidth: 120 ,
+            sx={{
+              maxWidth: 120,
               "@media screen and (max-width:467px)": {
-                maxWidth: 100
-            },}}
+                maxWidth: 100,
+              },
+            }}
             type="text"
             className={"textfield"}
             variant="filled"
@@ -109,10 +119,12 @@ function App() {
       <p>
         <div className="input">
           <TextField
-            sx={{ maxWidth: 200 ,
+            sx={{
+              maxWidth: 200,
               "@media screen and (max-width:467px)": {
-                maxWidth: 110
-            },}}
+                maxWidth: 110,
+              },
+            }}
             type="text"
             className={"textfield2"}
             variant="filled"
@@ -142,14 +154,17 @@ function App() {
               <MenuItem value={2}>引き算</MenuItem>
               <MenuItem value={3}>掛け算</MenuItem>
               <MenuItem value={4}>割り算</MenuItem>
+              <MenuItem value={5}>ランダム</MenuItem>
             </Select>
           </FormControl>
         </div>
       </p>
       <p>
-        １番目は<div className="output">{inputA}</div>進法、2番目は
-        <div className="output">{inputB}</div>進法で計算し、結果は
-        <div className="output">{result}</div>進法で表示します。
+        ＊ １番目は<div className="output">{inputA}</div>進法、2番目は
+        <div className="output">{inputB}</div>進法で計算します。
+      </p>
+      <p>
+        ＊ 結果は<div className="output">{result}</div>進法で表示します。
       </p>
       <p>次の計算をしましょう。</p>
       {inputA >= 2 && inputB >= 2 && result >= 2 && (
@@ -187,6 +202,47 @@ function App() {
                 inputA
               )}_{(${inputA})} \div ${number2.toString(inputB)}_{(${inputB})}`}
             ></MathComponent>
+          )}
+
+          {enzan === 5 && (
+            <div>
+              {ransu === 1 && (
+                <MathComponent
+                  display={true}
+                  tex={String.raw`${number1.toString(
+                    inputA
+                  )}_{(${inputA})} + ${number2.toString(inputB)}_{(${inputB})}`}
+                ></MathComponent>
+              )}
+              {ransu === 2 && (
+                <MathComponent
+                  display={true}
+                  tex={String.raw`${number1.toString(
+                    inputA
+                  )}_{(${inputA})} - ${number2.toString(inputB)}_{(${inputB})}`}
+                ></MathComponent>
+              )}
+              {ransu === 3 && (
+                <MathComponent
+                  display={true}
+                  tex={String.raw`${number1.toString(
+                    inputA
+                  )}_{(${inputA})} \times ${number2.toString(
+                    inputB
+                  )}_{(${inputB})}`}
+                ></MathComponent>
+              )}
+              {ransu === 4 && (
+                <MathComponent
+                  display={true}
+                  tex={String.raw`${number1.toString(
+                    inputA
+                  )}_{(${inputA})} \div ${number2.toString(
+                    inputB
+                  )}_{(${inputB})}`}
+                ></MathComponent>
+              )}
+            </div>
           )}
         </div>
       )}
@@ -273,6 +329,67 @@ function App() {
                 ></MathComponent>
               </>
             )}
+            {enzan === 5 && (
+              <p style={{ visibility: visible ? "visible" : "hidden" }}>
+                {ransu === 1 && (
+                  <MathComponent
+                    display={true}
+                    tex={String.raw`${number1.toString(
+                      inputA
+                    )}_{(${inputA})} + ${number2.toString(
+                      inputB
+                    )}_{(${inputB})} = ${(number1 + number2).toString(
+                      result
+                    )}_{(${result})}`}
+                  ></MathComponent>
+                )}
+                {ransu === 2 && (
+                  <MathComponent
+                    display={true}
+                    tex={String.raw`${number1.toString(
+                      inputA
+                    )}_{(${inputA})} - ${number2.toString(
+                      inputB
+                    )}_{(${inputB})} = ${(number1 - number2).toString(
+                      result
+                    )}_{(${result})}`}
+                  ></MathComponent>
+                )}
+                {ransu === 3 && (
+                  <MathComponent
+                    display={true}
+                    tex={String.raw`${number1.toString(
+                      inputA
+                    )}_{(${inputA})} \times ${number2.toString(
+                      inputB
+                    )}_{(${inputB})} = ${(number1 * number2).toString(
+                      result
+                    )}_{(${result})}`}
+                  ></MathComponent>
+                )}
+                {ransu === 4 && (
+                  <>
+                    <MathComponent
+                      display={false}
+                      tex={String.raw`${number1.toString(
+                        inputA
+                      )}_{(${inputA})} \div ${number2.toString(
+                        inputB
+                      )}_{(${inputB})} = ${Math.floor(
+                        number1 / number2
+                      ).toString(result)}_{(${result})}`}
+                    ></MathComponent>{" "}
+                    余り{" "}
+                    <MathComponent
+                      display={false}
+                      tex={`{${(number1 % number2).toString(
+                        result
+                      )}_{(${result})}}`}
+                    ></MathComponent>
+                  </>
+                )}
+              </p>
+            )}
           </p>
         </div>
       )}
@@ -290,6 +407,7 @@ function App() {
           setNumber1(a);
           setNumber2(b);
           setVisible(false);
+          setRansu(Math.floor(Math.random() * (4 + 1 - 1)) + 1);
         }}
       >
         整数を切り替える

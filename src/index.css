@@ -26,10 +26,6 @@
   display: inline;
 }
 
-#label {
-  width: 1000px;
-}
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -40,10 +36,8 @@ a:hover {
 }
 
 body {
-  margin: 10px;
+  padding: 3%;
   display: flex;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
