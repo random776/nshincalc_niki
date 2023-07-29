@@ -269,7 +269,7 @@ function App() {
         </button>
       )}
 
-      {number1 >= 2 && number2 >= 2 && result >= 2 && (
+      {inputA >= 2 && inputB >= 2 && result >= 2 && (
         <div>
           <p style={{ visibility: visible ? "visible" : "hidden" }}>
             {enzan === 1 && (
